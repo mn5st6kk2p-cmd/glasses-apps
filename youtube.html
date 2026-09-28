@@ -89,6 +89,10 @@ document.addEventListener('keydown',function(e){
   else if(e.key==='Enter'){e.preventDefault();if(items[idx])items[idx].click();}
 });
 var key=localStorage.getItem('yt_key')||'';
+// Allow the key to be passed in the URL hash, e.g. youtube.html#key=AIza...
+// (handy when typing on the lens is hard: paste it on the phone instead)
+var hm=location.hash.match(/key=([^&]+)/);
+if(hm&&hm[1]){key=decodeURIComponent(hm[1]);try{localStorage.setItem('yt_key',key);}catch(e){}}
 function showKeyPanel(show){document.getElementById('keypanel').style.display=show?'block':'none';if(show){document.getElementById('keyinput').value=key;}}
 document.getElementById('keybtn').addEventListener('click',function(){var p=document.getElementById('keypanel');showKeyPanel(p.style.display!=='block');renav();});
 document.getElementById('keysave').addEventListener('click',function(){
